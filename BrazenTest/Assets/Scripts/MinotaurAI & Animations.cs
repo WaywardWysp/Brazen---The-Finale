@@ -38,12 +38,21 @@ public class MinotaurAI : MonoBehaviour
     private Vector3 chargeDirection; // Stores direction of charge
     private float timeSinceLastSeen; // Timer since player last spotted
 
+    [Header("Dae's Animation Mess")]
+    public Animator animator;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
         agent.speed = wanderSpeed;
         Wander(); // Start Astarion in wandering state
+
+      //DAE's Animation Mess Contiues
+        animator = GetComponent<Animator>(); //Find the Animator component on the Minotaur
+        animator.SetBool("Charge", true); //Set the charge to be true at start
+        animator.SetBool("Walk", false); //No random walking... turn that off at start
+        animator.SetBool("Spotted", false); //No Players seen yet.
     }
 
     void Update()
@@ -72,6 +81,7 @@ public class MinotaurAI : MonoBehaviour
                 }
                 else if (agent.remainingDistance < 1f)
                 {
+
                     // Continue wandering
                     Wander();
                 }
@@ -126,6 +136,8 @@ public class MinotaurAI : MonoBehaviour
         agent.isStopped = true;
         PlaySound(listeningSound, false);
         StartCoroutine(ListenForPlayer());
+
+        animator.SetBool("Walk", false); //DAE goes back to idle while listening
     }
 
     IEnumerator ListenForPlayer()
@@ -179,7 +191,9 @@ public class MinotaurAI : MonoBehaviour
 
     void Wander()
     {
-        for (int i = 0; i < 5; i++)
+        animator.SetBool("Walk", true); //DAE turning on walk animation
+
+         for (int i = 0; i < 5; i++)
         {
             Vector3 randomPoint = transform.position + Random.insideUnitSphere * wanderRadius;
             randomPoint.y = transform.position.y;
@@ -216,6 +230,10 @@ public class MinotaurAI : MonoBehaviour
         agent.isStopped = false;
         agent.speed = chargeSpeed;
 
+        animator.SetBool("Spotted", true); //DAE begin angry "Spotted" animation
+        animator.SetBool("Walk", false);
+        animator.SetBool("Charge", true); //DAE If Charge is off this will turn it back on
+
         StartCoroutine(ChargeRecovery());
     }
 
@@ -223,6 +241,13 @@ public class MinotaurAI : MonoBehaviour
     {
         yield return new WaitForSeconds(chargeDuration);
         agent.isStopped = true;
+       
+        if (agent.isStopped == true)
+        {
+            animator.SetBool("Charge", false); //DAE minotaur goes back to idle
+            animator.SetBool("Spotted", false); // DAE reset the Spotted Bool
+        }
+
         currentState = MinotaurState.Recovering;
         PlaySound(recoverySound, false);
         yield return new WaitForSeconds(recoveryTime);
