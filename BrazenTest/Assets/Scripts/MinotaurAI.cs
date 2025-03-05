@@ -44,15 +44,7 @@ public class MinotaurAI : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        audioSource = GetComponent<AudioSource>();
-        agent.speed = wanderSpeed;
-        Wander(); // Start Astarion in wandering state
-
-      //DAE's Animation Mess Contiues
-        animator = GetComponent<Animator>(); //Find the Animator component on the Minotaur
-        animator.SetBool("Charge", true); //Set the charge to be true at start
-        animator.SetBool("Walk", false); //No random walking... turn that off at start
-        animator.SetBool("Spotted", false); //No Players seen yet.
+        agent.updateRotation = true;
     }
 
     void Update()
@@ -164,15 +156,12 @@ public class MinotaurAI : MonoBehaviour
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         float angle = Vector3.Angle(transform.forward, directionToPlayer);
 
-        Vector3 rayStart = transform.position + transform.forward * 1f;
-
-        Debug.DrawRay(transform.position, directionToPlayer * visionDistance, Color.red, 0.1f);
-
         if (angle < visionAngle / 2f && Vector3.Distance(transform.position, player.position) < visionDistance)
         {
-            if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, visionDistance))
+            // Perform Raycast, but ignore the Minotaur itself
+            if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, visionDistance, ~LayerMask.GetMask("Minotaur")))
             {
-                Debug.Log("Raycast Hit: " + hit.collider.gameObject.name); 
+                Debug.Log("Raycast Hit: " + hit.collider.gameObject.name);
 
                 if (hit.transform == player)
                 {
@@ -182,6 +171,7 @@ public class MinotaurAI : MonoBehaviour
         }
         return false;
     }
+
 
 
     bool PlayerMadeNoise()
