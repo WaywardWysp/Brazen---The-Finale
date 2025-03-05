@@ -120,6 +120,21 @@ public class MinotaurAI : MonoBehaviour
             case MinotaurState.Recovering:
                 break;
         }
+
+        if (PlayerPrefs.GetInt("SlowBull", 0) == 1) //Shawn's Slow bull
+        {
+            chargeSpeed = 2;
+            wanderSpeed = 1;
+            searchSpeed = 1;
+        }
+        // Normal health
+        else
+        {
+
+            chargeSpeed = 10;
+            wanderSpeed = 2;
+            searchSpeed = 8;
+        }
     }
 
     void StartListening()

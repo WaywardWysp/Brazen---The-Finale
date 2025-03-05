@@ -78,6 +78,18 @@ public class FirstPersonPlayer : MonoBehaviour
 
         HandleFootstepSounds(move.magnitude > 0);
         ApplyCameraBobbing(move.magnitude > 0);
+
+        if (PlayerPrefs.GetInt("InfTwine", 0) == 1)
+        {
+            twineCount = 99;
+            maxTwine = 99;
+        }
+        // Normal health
+        else
+        {
+
+            maxTwine = 10;
+        }
     }
 
     void AlertMinotaur()

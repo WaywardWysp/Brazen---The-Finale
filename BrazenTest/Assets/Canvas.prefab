@@ -260,7 +260,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 234400320463172403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d6a48676099bbe49826681e5682a3fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 54e228f4f1091714bad66a7770c203db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &670350781042571253
@@ -549,6 +549,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7373536726413589956}
   - component: {fileID: 7319497091964852613}
+  - component: {fileID: 5857489425228876352}
   - component: {fileID: 7171891220307640120}
   m_Layer: 5
   m_Name: optionsMenu
@@ -587,6 +588,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976894301125884903}
   m_CullTransparentMesh: 1
+--- !u!114 &5857489425228876352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976894301125884903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8f530819ed4554cb4f8dfa279113f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SlowBullButton: {fileID: 7855220420717231335}
+  InfTwineButton: {fileID: 3965176958636803998}
 --- !u!114 &7171891220307640120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1437,7 +1452,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5458382030774089730}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5742c2865fd33c848bed63bbde4f98a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ebb2a4a15406424785c0e30a8facb60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5756303072310872749
